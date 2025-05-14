@@ -107,6 +107,10 @@ def get_metadata(file_path):
         }
 @app.route('/')
 def index():
+    current_directory = os.getcwd()  # This gets the current working directory
+    print(f"Current directory: {current_directory}")
+    music_dir = os.path.join(current_directory, 'music')  # Assuming 'music' is a subfolder
+    print("Files in music directory:", os.listdir(music_dir))
     files = [
         get_metadata(os.path.join(MUSIC_FOLDER, f))
         for f in os.listdir(MUSIC_FOLDER)

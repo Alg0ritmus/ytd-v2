@@ -86,7 +86,10 @@ def ytd_downloader(yt_url):
     music_dir = os.path.join(os.getcwd(), 'music')
     os.makedirs(music_dir, exist_ok=True)
 
-    print("Current directory files:", os.listdir('/path/to/your/music/folder'))
+    current_directory = os.getcwd()  # This gets the current working directory
+    print(f"Current directory: {current_directory}")
+    music_dir = os.path.join(current_directory, 'music')  # Assuming 'music' is a subfolder
+    print("Files in music directory:", os.listdir(music_dir))
 
     ydl_opts = {
         'format': 'bestaudio[ext=m4a]/bestaudio',  # Prefer m4a, fallback to any
