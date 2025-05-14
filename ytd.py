@@ -109,7 +109,8 @@ def ytd_downloader(yt_url):
         'noplaylist': True,
         'quiet': False,
         'no_warnings': False,
-        'ignoreerrors': True,
+        'ignoreerrors': False,
+        'verbose': True,
     }
 
     for url in urls:
