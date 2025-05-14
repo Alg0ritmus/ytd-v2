@@ -6,7 +6,7 @@ __pycache__/
 *.pyc
 
 # Environment variables
-
+.env
 
 # OS-specific files
 .DS_Store
