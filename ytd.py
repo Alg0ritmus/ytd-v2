@@ -47,6 +47,7 @@ def extract_youtube_ids_from_text(text):
 
 
 def ytd_downloader(yt_url):
+    print(">>>>>yt_url", yt_url)
     video_id, playlist_id = extract_youtube_ids_from_text(yt_url)
     urls = []
     if video_id:
@@ -84,6 +85,8 @@ def ytd_downloader(yt_url):
 
     music_dir = os.path.join(os.getcwd(), 'music')
     os.makedirs(music_dir, exist_ok=True)
+
+    print("Current directory files:", os.listdir('/path/to/your/music/folder'))
 
     ydl_opts = {
         'format': 'bestaudio[ext=m4a]/bestaudio',  # Prefer m4a, fallback to any
