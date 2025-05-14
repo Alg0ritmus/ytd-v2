@@ -1,6 +1,5 @@
 
 
-
 import yt_dlp
 from ytmusicapi import YTMusic
 import json
@@ -12,6 +11,7 @@ import os
 
 import re
 from urllib.parse import urlparse, parse_qs
+
 
 def extract_youtube_ids_from_text(text):
     try:
@@ -82,31 +82,35 @@ def ytd_downloader(yt_url):
             print(f"🔗 Song URL: {song_url}")
             print('-' * 60)
 
-
     music_dir = os.path.join(os.getcwd(), 'music')
     os.makedirs(music_dir, exist_ok=True)
 
     current_directory = os.getcwd()  # This gets the current working directory
     print(f"Current directory: {current_directory}")
-    music_dir = os.path.join(current_directory, 'music')  # Assuming 'music' is a subfolder
+    # Assuming 'music' is a subfolder
+    music_dir = os.path.join(current_directory, 'music')
     print("Files in music directory:", os.listdir(music_dir))
 
     ydl_opts = {
-        'format': 'bestaudio[ext=m4a]/bestaudio',  # Prefer m4a, fallback to any
+        'format': 'bestaudio[ext=m4a]/bestaudio',
         'outtmpl': os.path.join(music_dir, '%(title)s.%(ext)s'),
-        'postprocessors': [{
-            'key': 'FFmpegMetadata',  # This adds metadata to audio files
-        },
-            {
-                'key': 'EmbedThumbnail',  # Embeds thumbnail as cover image
-        },
+        'user_agent': (
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
+            '(KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'
+        ),
+        'postprocessors': [
+            {'key': 'FFmpegMetadata'},
+            {'key': 'EmbedThumbnail'},
         ],
-        'writethumbnail': True,  # Download the thumbnail
-        'addmetadata': True,  # Skip ffmpeg or conversion
+        'writethumbnail': True,
+        'addmetadata': True,
+        'geo_bypass': True,
+        'geo_bypass_country': 'US',
+        'noplaylist': True,
+        'quiet': False,
+        'no_warnings': False,
+        'ignoreerrors': True,
     }
-
-
-    
 
     for url in urls:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
